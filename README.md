@@ -13,6 +13,7 @@ Prepare you environment:
 3) Install Node Red's webex teams spark modules
 4) Install Node Red's python modules
 5) Make Node Red public available
+6) Load .json flow into Node Red
 
 Prepare you bot:
 1) Edit Node Red WebexTeams API with your bot name+token
