@@ -1,0 +1,725 @@
+[
+    {
+        "id": "82baed71.10f868",
+        "type": "tab",
+        "label": "Webex Teams Flow",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "215d72ec.4c6816",
+        "type": "comment",
+        "z": "82baed71.10f868",
+        "name": "Msg from robot",
+        "info": "",
+        "x": 180,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "cf578f01.390958",
+        "type": "Webex Teams API",
+        "z": "82baed71.10f868",
+        "profileConfig": "7bf2c233.0677a4",
+        "apiUrl": "https://",
+        "resource": "messages",
+        "method": "createMessage",
+        "name": "Send MSG to Webex Room",
+        "x": 880,
+        "y": 320,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "14eb45b1.6d1be2",
+        "type": "inject",
+        "z": "82baed71.10f868",
+        "name": "Sample MSG test to webex teams",
+        "topic": "",
+        "payload": "{\"body\":{\"roomId\":\"<put the desired Room ID>\",\"text\":\"Msg para sala by Infobot\"}}",
+        "payloadType": "json",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 480,
+        "y": 260,
+        "wires": [
+            [
+                "cf578f01.390958"
+            ]
+        ]
+    },
+    {
+        "id": "c989e8a2.86b88",
+        "type": "Webex Teams API",
+        "z": "82baed71.10f868",
+        "profileConfig": "7bf2c233.0677a4",
+        "apiUrl": "https://",
+        "resource": "rooms",
+        "method": "getRooms",
+        "name": "List rooms where bot belongs to",
+        "x": 450,
+        "y": 100,
+        "wires": [
+            [
+                "89c7cc55.f33a08"
+            ]
+        ]
+    },
+    {
+        "id": "89c7cc55.f33a08",
+        "type": "Webex Teams Payload Parser",
+        "z": "82baed71.10f868",
+        "name": "filters roomId and Title",
+        "parsers": [
+            {
+                "key": "id",
+                "as": ""
+            },
+            {
+                "key": "title",
+                "as": ""
+            }
+        ],
+        "x": 740,
+        "y": 100,
+        "wires": [
+            [
+                "cf68f4a.a8aef88"
+            ]
+        ]
+    },
+    {
+        "id": "cf68f4a.a8aef88",
+        "type": "debug",
+        "z": "82baed71.10f868",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 970,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "9e82dfdf.26b99",
+        "type": "comment",
+        "z": "82baed71.10f868",
+        "name": "THIS FLOW IS TO TEST YOUR BOT",
+        "info": "",
+        "x": 190,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "2de0cdc3.a4ad9a",
+        "type": "comment",
+        "z": "82baed71.10f868",
+        "name": "1) Get Webhook msg",
+        "info": "",
+        "x": 140,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "80cdded1.b54cb8",
+        "type": "Webex Teams Payload Parser",
+        "z": "82baed71.10f868",
+        "name": "Filters MSG Id",
+        "parsers": [
+            {
+                "key": "id",
+                "as": "messageId"
+            }
+        ],
+        "x": 300,
+        "y": 640,
+        "wires": [
+            [
+                "6d4144ce.36d344"
+            ]
+        ]
+    },
+    {
+        "id": "6d4144ce.36d344",
+        "type": "Webex Teams API",
+        "z": "82baed71.10f868",
+        "profileConfig": "7bf2c233.0677a4",
+        "apiUrl": "https://",
+        "resource": "messages",
+        "method": "getMessage",
+        "name": "get msg Id",
+        "x": 150,
+        "y": 740,
+        "wires": [
+            [
+                "8060a510.324ec"
+            ]
+        ]
+    },
+    {
+        "id": "94c60771.b3e31",
+        "type": "Webex Teams Payload Parser",
+        "z": "82baed71.10f868",
+        "name": "Filters text",
+        "parsers": [
+            {
+                "key": "text",
+                "as": ""
+            },
+            {
+                "key": "personId",
+                "as": ""
+            }
+        ],
+        "x": 570,
+        "y": 960,
+        "wires": [
+            [
+                "125742d2.3fd795"
+            ]
+        ]
+    },
+    {
+        "id": "8d6659a6.7ba658",
+        "type": "Webex Teams Payload Parser",
+        "z": "82baed71.10f868",
+        "name": "Filters personId",
+        "parsers": [
+            {
+                "key": "personId",
+                "as": ""
+            },
+            {
+                "key": "name",
+                "as": ""
+            }
+        ],
+        "x": 180,
+        "y": 860,
+        "wires": [
+            [
+                "2f1f7f8d.fd3a48"
+            ]
+        ]
+    },
+    {
+        "id": "2f1f7f8d.fd3a48",
+        "type": "Webex Teams API",
+        "z": "82baed71.10f868",
+        "profileConfig": "7bf2c233.0677a4",
+        "apiUrl": "https://",
+        "resource": "people",
+        "method": "getPerson",
+        "name": "Person Id data",
+        "x": 420,
+        "y": 1040,
+        "wires": [
+            [
+                "8dd9a6b0.c41378"
+            ]
+        ]
+    },
+    {
+        "id": "8dd9a6b0.c41378",
+        "type": "Webex Teams Payload Parser",
+        "z": "82baed71.10f868",
+        "name": "Filters Display Name",
+        "parsers": [
+            {
+                "key": "displayName",
+                "as": ""
+            }
+        ],
+        "x": 720,
+        "y": 1040,
+        "wires": [
+            [
+                "125742d2.3fd795"
+            ]
+        ]
+    },
+    {
+        "id": "b615c16f.3fcb3",
+        "type": "debug",
+        "z": "82baed71.10f868",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload.body.text",
+        "targetType": "msg",
+        "x": 1260,
+        "y": 800,
+        "wires": []
+    },
+    {
+        "id": "8060a510.324ec",
+        "type": "switch",
+        "z": "82baed71.10f868",
+        "name": "filtering",
+        "property": "payload.personEmail",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "neq",
+                "v": "infobot@sparkbot.io",
+                "vt": "str"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 1,
+        "x": 400,
+        "y": 740,
+        "wires": [
+            [
+                "94c60771.b3e31",
+                "8d6659a6.7ba658"
+            ]
+        ]
+    },
+    {
+        "id": "125742d2.3fd795",
+        "type": "join",
+        "z": "82baed71.10f868",
+        "name": "join",
+        "mode": "custom",
+        "build": "merged",
+        "property": "payload",
+        "propertyType": "msg",
+        "key": "topic",
+        "joiner": "\\n",
+        "joinerType": "str",
+        "accumulate": false,
+        "timeout": "",
+        "count": "2",
+        "reduceRight": false,
+        "reduceExp": "",
+        "reduceInit": "",
+        "reduceInitType": "num",
+        "reduceFixup": "",
+        "x": 910,
+        "y": 960,
+        "wires": [
+            [
+                "28638a96.6900b6",
+                "4ec0d5f7.e0b3b4"
+            ]
+        ]
+    },
+    {
+        "id": "28638a96.6900b6",
+        "type": "debug",
+        "z": "82baed71.10f868",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 1150,
+        "y": 960,
+        "wires": []
+    },
+    {
+        "id": "de318002.5ef9c8",
+        "type": "comment",
+        "z": "82baed71.10f868",
+        "name": "2) Move on if msg is not from bot itself",
+        "info": "",
+        "x": 470,
+        "y": 700,
+        "wires": []
+    },
+    {
+        "id": "eb207d76.bf4f6",
+        "type": "comment",
+        "z": "82baed71.10f868",
+        "name": "2A) Who wrote?",
+        "info": "",
+        "x": 180,
+        "y": 800,
+        "wires": []
+    },
+    {
+        "id": "d65b4fe.a32ac3",
+        "type": "comment",
+        "z": "82baed71.10f868",
+        "name": "2B) What is written?",
+        "info": "",
+        "x": 610,
+        "y": 900,
+        "wires": []
+    },
+    {
+        "id": "ddc7012e.1d9d9",
+        "type": "comment",
+        "z": "82baed71.10f868",
+        "name": "3) Join who + what",
+        "info": "",
+        "x": 870,
+        "y": 900,
+        "wires": []
+    },
+    {
+        "id": "4ec0d5f7.e0b3b4",
+        "type": "change",
+        "z": "82baed71.10f868",
+        "name": "recreate JSON msg",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.body.roomId",
+                "pt": "msg",
+                "to": "",
+                "tot": "str"
+            },
+            {
+                "t": "move",
+                "p": "payload.text",
+                "pt": "msg",
+                "to": "payload.body.text",
+                "tot": "msg"
+            },
+            {
+                "t": "delete",
+                "p": "payload.personId",
+                "pt": "msg"
+            },
+            {
+                "t": "move",
+                "p": "payload.displayName",
+                "pt": "msg",
+                "to": "payload.body.displayName",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 870,
+        "y": 800,
+        "wires": [
+            [
+                "b615c16f.3fcb3",
+                "655d860a.02bae8"
+            ]
+        ]
+    },
+    {
+        "id": "b8310023.e50358",
+        "type": "comment",
+        "z": "82baed71.10f868",
+        "name": "5) Command interpretation",
+        "info": "",
+        "x": 770,
+        "y": 600,
+        "wires": []
+    },
+    {
+        "id": "655d860a.02bae8",
+        "type": "python-function",
+        "z": "82baed71.10f868",
+        "name": "Understand user's command",
+        "func": "import json\n\n\n# get payload\ntry:\n    texto = msg['payload']['body']['text']\nexcept:\n    pass    \n\n# default msg\ndefault=\"I didn't get your command.\\n\"\n\n# lower input for easyness of comparison\ntexto=texto.lower()\n\n#split to parameters\nparams=texto.split(\" \")\nb=0\n\nif len(params) > 1:\n    \n    # check to see checkout word in command\n    if \"tarefa_A\" in texto:\n        while b<len(params):\n            if params[b]=='comando':\n                msg['payload']=transacao\n                msg['topic']=transacao\n\n            b=b+1\n        \n        #return to function 1\n        return msg\n        \n    # check to see fraud word in command\n    elif \"tarefa_B\" in texto:\n        while b<len(params):\n            if params[b]=='comando 2':\n                msg['payload']=transacao\n                msg['topic']=transacao\n            \n            b=b+1\n    \n        #outputs to function 2\n        return [None, msg]\n    \n    # if no match, default message    \n    else:\n        msg['payload']=default\n        return [None,None,msg]\n\nelse:\n    # if no match, default message\n    msg['payload']=default\n    return [None,None,msg]\n\n        \nreturn",
+        "outputs": 3,
+        "x": 780,
+        "y": 660,
+        "wires": [
+            [
+                "3e061baa.c2cfac"
+            ],
+            [
+                "e1916d7a.0a77b"
+            ],
+            [
+                "a1571af7.eb0b"
+            ]
+        ]
+    },
+    {
+        "id": "b93e5bf0.dd404",
+        "type": "debug",
+        "z": "82baed71.10f868",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 1350,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "57073d9e.fe9604",
+        "type": "Webex Teams Webhook",
+        "z": "82baed71.10f868",
+        "profileConfig": "7bf2c233.0677a4",
+        "resource": "messages",
+        "event": "created",
+        "host": "<PUT WEBHOOK LINK HERE>",
+        "name": "GET Webhook",
+        "x": 100,
+        "y": 640,
+        "wires": [
+            [
+                "80cdded1.b54cb8"
+            ]
+        ]
+    },
+    {
+        "id": "f3a0570c.5f72a",
+        "type": "link in",
+        "z": "82baed71.10f868",
+        "name": "msg to webex teams via plain JSON",
+        "links": [],
+        "x": 675,
+        "y": 220,
+        "wires": [
+            [
+                "cf578f01.390958"
+            ]
+        ]
+    },
+    {
+        "id": "8b31c877.05bcb8",
+        "type": "comment",
+        "z": "82baed71.10f868",
+        "name": "Receive text + image and sends out to Webex Teams",
+        "info": "",
+        "x": 240,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "1c6243c7.ef76f4",
+        "type": "python-function",
+        "z": "82baed71.10f868",
+        "name": "text + image",
+        "func": "import json\n\n# Put here where you bot will send messages\nroomId=\"roomID\"\n\n\n# get payload\n\nvariavel=msg['payload']\n\nsepara=variavel.split('@')\n\nimagem=\"\"\n\n\nif len(separa)==2 and separa[1]!=\"\":\n    mensagem=separa[0]\n    imagem=separa[1]\n    \n    body={\n            \"body\": {\n                \"roomId\": roomId,\n                \"text\": mensagem,\n                'files': imagem\n            }\n        }\n        \n    \nelif len(separa)==1:\n    mensagem=separa[0]\n\n    body={\n        \"body\": {\n            \"roomId\": roomId,\n            \"text\": mensagem\n        }\n    }\n        \n\nelif len(separa)==0:\n    mensagem=variavel\n\n    body={\n        \"body\": {\n            \"roomId\": roomId,\n            \"text\": mensagem\n        }\n    }\n        \n#msg['payload']={ 'msg': mensagem, 'imagem':imagem }\n\nmsg['payload']=body\n\n\nreturn msg",
+        "outputs": 1,
+        "x": 570,
+        "y": 400,
+        "wires": [
+            [
+                "4aeffae0.708584",
+                "cf578f01.390958"
+            ]
+        ]
+    },
+    {
+        "id": "4aeffae0.708584",
+        "type": "debug",
+        "z": "82baed71.10f868",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 820,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "d992dbc.08106a8",
+        "type": "inject",
+        "z": "82baed71.10f868",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 330,
+        "y": 480,
+        "wires": [
+            [
+                "1c6243c7.ef76f4"
+            ]
+        ]
+    },
+    {
+        "id": "3e061baa.c2cfac",
+        "type": "switch",
+        "z": "82baed71.10f868",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "neq",
+                "v": "",
+                "vt": "str"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 1,
+        "x": 1170,
+        "y": 580,
+        "wires": [
+            [
+                "b93e5bf0.dd404"
+            ]
+        ]
+    },
+    {
+        "id": "419507f2.69ef1",
+        "type": "comment",
+        "z": "82baed71.10f868",
+        "name": "4) Recreate Json",
+        "info": "",
+        "x": 840,
+        "y": 760,
+        "wires": []
+    },
+    {
+        "id": "41a7cd6f.dbc4fc",
+        "type": "debug",
+        "z": "82baed71.10f868",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 1350,
+        "y": 620,
+        "wires": []
+    },
+    {
+        "id": "fcef2b23.4fff28",
+        "type": "comment",
+        "z": "82baed71.10f868",
+        "name": "6A) Function 1",
+        "info": "",
+        "x": 1120,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "379f9df.b3de4e2",
+        "type": "comment",
+        "z": "82baed71.10f868",
+        "name": "6B) Function 2",
+        "info": "",
+        "x": 1120,
+        "y": 620,
+        "wires": []
+    },
+    {
+        "id": "74162fa2.8b052",
+        "type": "comment",
+        "z": "82baed71.10f868",
+        "name": "6C) Else",
+        "info": "",
+        "x": 1100,
+        "y": 720,
+        "wires": []
+    },
+    {
+        "id": "a1571af7.eb0b",
+        "type": "link out",
+        "z": "82baed71.10f868",
+        "name": "Default msg to Webex teams",
+        "links": [
+            "32e5baaa.24ff5e"
+        ],
+        "x": 1215,
+        "y": 760,
+        "wires": []
+    },
+    {
+        "id": "e1916d7a.0a77b",
+        "type": "switch",
+        "z": "82baed71.10f868",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "neq",
+                "v": "",
+                "vt": "str"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 1,
+        "x": 1170,
+        "y": 660,
+        "wires": [
+            [
+                "41a7cd6f.dbc4fc"
+            ]
+        ]
+    },
+    {
+        "id": "581d7ecf.08249",
+        "type": "inject",
+        "z": "82baed71.10f868",
+        "name": "Start",
+        "topic": "",
+        "payload": "{ }",
+        "payloadType": "json",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 170,
+        "y": 100,
+        "wires": [
+            [
+                "c989e8a2.86b88"
+            ]
+        ]
+    },
+    {
+        "id": "2c68a117.abe426",
+        "type": "comment",
+        "z": "82baed71.10f868",
+        "name": "PUT your room ID here",
+        "info": "",
+        "x": 560,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "bc0fc9cc.74656",
+        "type": "comment",
+        "z": "82baed71.10f868",
+        "name": "THIS FLOW STARTS WHEN SOMEONE SENDS A MESSAGE TO OUR YOUR BOT",
+        "info": "",
+        "x": 310,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "1b5e2ca6.dc243b",
+        "type": "comment",
+        "z": "82baed71.10f868",
+        "name": "THIS FLOW STARTS WHEN A MESSAGE SHOULD BE SENT FROM OUR BOT",
+        "info": "",
+        "x": 300,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "7bf2c233.0677a4",
+        "type": "Webex Teams Authentication",
+        "z": "",
+        "name": "infobot"
+    }
+]
